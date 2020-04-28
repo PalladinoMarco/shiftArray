@@ -37,6 +37,7 @@
 
 template <class V, size_t size> V shiftLeftVector(V (&vector)[size])
 { 
+  // byte size to avoid memmove overflows
   byte byteCut = sizeof(vector[0]);
   
   for(size_t i = 0; i < size; i++)
@@ -55,7 +56,6 @@ template <class V, size_t size> V shiftLeftVector(V (&vector)[size], V newElemen
  
 template <class V, size_t size> V shiftRightVector(V (&vector)[size])
 { 
-  // byte size to avoid memmove overflows
   byte byteCut = sizeof(vector[0]);
   
   for(size_t i = size; i > 0; i--)
