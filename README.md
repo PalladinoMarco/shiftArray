@@ -1,4 +1,4 @@
-# shiftArrey
+# shiftArray
 C++ Template Functions to shift elements of an array to the left or right.
 
 ```C++
