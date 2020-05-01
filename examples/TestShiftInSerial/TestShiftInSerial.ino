@@ -7,20 +7,29 @@
 #define r 114
 
 static uint8_t ascii_check;
+
+// command flag declaration
 static bool shiftcmd;
 
-// definizione vettore
+// samples array definition
 uint8_t samples[] = {1,2,3,4,5};
 
+// dynamic samples quantity counter
 byte samplesCount = sizeof(samples)/sizeof(samples[0]);
+
+// serial receiver byte definition
 uint8_t incomingByte = 0;
 
 void setup() {
-  // put your setup code here, to run once:
+  // Serial initialize
   Serial.begin(9600);
   while(!Serial){}
+  
+  // set deafult shift side
   ascii_check = L;
   Serial.println("Shift Left. You can change shifting direction\ndigit 'R' for shifting right or 'L' for left.\nDigit value to shift");
+  
+  // print samples value
   for(uint8_t i=0; i < samplesCount; i++)
   {
     Serial.print(samples[i]);
@@ -31,13 +40,16 @@ void setup() {
 
 void loop() {
   
+  // command flag definition
   shiftcmd = false;
   
+  // if serial byte receiver
   if (Serial.available())
   {
     // read the incoming byte:
     incomingByte = Serial.read();
 
+    // check if command byte
     if(incomingByte == R || incomingByte == r)
     {
       ascii_check = R;
@@ -50,21 +62,23 @@ void loop() {
     }
     
     incomingByte -= '0';
-
+    
     if(!shiftcmd)
     {
       switch(ascii_check)
       {
         case L:
+        // shift and add new element
         *samples = shiftLeft<uint8_t>(samples, incomingByte);
         break;
   
         case R:
+        // shift and add new element
         *samples = shiftRight<uint8_t>(samples, incomingByte);
         break;
       }
       
-       // Print values
+       // Print shifting samples values
        for(uint8_t i=0; i < samplesCount; i++)
         {
           Serial.print(samples[i]);
