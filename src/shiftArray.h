@@ -38,7 +38,7 @@
 template <class A, size_t size> A shiftLeft(A (&array)[size])
 { 
   // byte size to avoid memmove overflows
-  byte byteCut = sizeof(array[0]);
+  size_t byteCut = sizeof(array[0]);
   
   for(size_t i = 0; i < size; i++)
   {
@@ -58,7 +58,7 @@ template <class A, size_t size> A shiftLeft(A (&array)[size], A newElement)
 // shift Right
 template <class A, size_t size> A shiftRight(A (&array)[size])
 { 
-  byte byteCut = sizeof(array[0]);
+  size_t byteCut = sizeof(array[0]);
   
   for(size_t i = size; i > 0; i--)
   {
